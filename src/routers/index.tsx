@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "../components/layouts/RootLayout";
 import { Typography } from "antd";
+import RankingRacesPage from "../pages/races/RankingRacesPage";
+import RankingRaceDetailPage from "../pages/races/RankingRaceDetailPage";
 
 export const router = createBrowserRouter([
   {
@@ -8,7 +10,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/races",
-        element: <div>Races</div>,
+        element: <RankingRacesPage />,
+      },
+      {
+        path: "races/:grandPrix",
+        element: <RankingRaceDetailPage />,
       },
       {
         path: "/drivers",

@@ -3,11 +3,13 @@ import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { baseApi } from "./api/baseApi";
 import { seasonApi } from "./api/seasonApi";
 import { seasonSlice } from "./features/seasonSlice";
+import { rankingRacesApi } from "./api/ranking.races.api";
 
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     [seasonApi.reducerPath]: seasonApi.reducer,
+    [rankingRacesApi.reducerPath]: rankingRacesApi.reducer,
     seasonState: seasonSlice.reducer,
   },
   //   devTools: process.env.NODE_ENV === 'development',
