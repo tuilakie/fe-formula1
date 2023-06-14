@@ -1,11 +1,14 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaCarCrash } from "react-icons/fa";
 import { RxPerson } from "react-icons/rx";
 import { RiTeamFill } from "react-icons/ri";
 import type { MenuProps } from "antd";
 import { Layout, Menu, Select, Space, Typography } from "antd";
 import { Toaster } from "react-hot-toast";
+import { useGetSeasonsQuery } from "../../redux/api/seasonApi";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { setSeason } from "../../redux/features/seasonSlice";
 
 const { Content, Sider, Header } = Layout;
 
@@ -33,6 +36,14 @@ const items: MenuItem[] = [
 const RootLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
+  const { data, isLoading, isFetching } = useGetSeasonsQuery();
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (data) {
+      dispatch(setSeason({ season: data.data[0].name }));
+    }
+  }, [data, dispatch]);
+  const season = useAppSelector((state) => state.seasonState.season);
 
   return (
     <>
@@ -75,11 +86,15 @@ const RootLayout = () => {
               <Select
                 size="large"
                 style={{ width: 120 }}
-                options={Array.from({ length: 70 }, (_, i) => ({
-                  label: `${2021 - i}`,
-                  value: `${2021 - i}`,
+                options={data?.data.map((item) => ({
+                  label: item.name,
+                  value: item.name,
                 }))}
-                defaultValue="2021"
+                loading={isLoading || isFetching}
+                value={season}
+                onChange={(value) => {
+                  dispatch(setSeason({ season: value }));
+                }}
               ></Select>
             </Space>
           </Header>
