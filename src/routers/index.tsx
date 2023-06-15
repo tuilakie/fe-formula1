@@ -3,6 +3,10 @@ import RootLayout from "../components/layouts/RootLayout";
 import { Typography } from "antd";
 import RankingRacesPage from "../pages/races/RankingRacesPage";
 import RankingRaceDetailPage from "../pages/races/RankingRaceDetailPage";
+import RankingDriverPage from "../pages/drivers/RankingDriverPage";
+import RankingDriverDetailPage from "../pages/drivers/RankingDriverDetailPage";
+import RankingTeamPage from "../pages/teams/RankingTeamPage";
+import RankingTeamDetailPage from "../pages/teams/RankingTeamDetailPage";
 
 export const router = createBrowserRouter([
   {
@@ -18,11 +22,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/drivers",
-        element: <div>Drivers</div>,
+        element: <RankingDriverPage />,
+      },
+      {
+        path: "/drivers/:driverName",
+        element: <RankingDriverDetailPage />,
       },
       {
         path: "/teams",
-        element: <div>Teams</div>,
+        element: <RankingTeamPage />,
+      },
+      {
+        path: "/teams/:teamName",
+        element: <RankingTeamDetailPage />,
       },
       {
         path: "/",

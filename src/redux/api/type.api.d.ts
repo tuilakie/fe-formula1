@@ -1,3 +1,4 @@
+import { RankingDriver } from "./type.api.d";
 export interface HttpResponse<T> {
   success: boolean;
   data: T;
@@ -34,4 +35,34 @@ export type RankingRaceDetail = {
   circuit: string;
   title: string;
   rank?: Omit<RankingRaces, "grandPrix" | "date" | "circuit">[];
+};
+
+export type RankingDriver = {
+  position: string;
+  name: string;
+  team: string;
+  points: number;
+  nationality: string;
+};
+
+export type RankingDriverDetail = {
+  grandPrix: string;
+  date: Date;
+  team: string;
+  position: string;
+  points: number;
+  laps: string;
+  time: string;
+};
+
+export type RankingTeam = {
+  name: string;
+  points: number;
+};
+
+export type RankingTeamDetail = {
+  grandPrix: string;
+  date: Date;
+  team: string;
+  points: number;
 };

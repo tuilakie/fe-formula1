@@ -17,9 +17,22 @@ export const rankingRacesApi = baseApi.injectEndpoints({
         url: `ranking/${season}/races/${grandPrix}`,
         method: "GET",
       }),
+      transformResponse: (response: HttpResponse<RankingRaceDetail>) => {
+        const { data } = response;
+        const { rank } = data;
+        const rankSorted = rank?.sort((a, b) => {
+          return parseInt(a.position) - parseInt(b.position);
+        });
+        return {
+          ...response,
+          data: {
+            ...data,
+            rank: rankSorted,
+          },
+        };
+      },
     }),
   }),
-  overrideExisting: false,
 });
 
 export const { useGetRankingRacesQuery, useGetRankingDetailsQuery } =
